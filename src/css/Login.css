@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+.loginPage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 200px;
+  margin-top: -100px;
+  width: 400px;
+  margin-left: -200px;
+}
+
+.loginPage .login-text {
+  margin-top: 35px;
+  color: #f1356d;
+  font-size: 25px;
+  text-align: center;
+}
+
+.loginPage .login-btn {
+  padding: 40px;
+  text-align: center;
+}
+
+.login-btn .a {
+  margin-left: 16px;
+  text-decoration: none;
+  font-weight: 900;
+  padding: 6px;
+  font-size: large;
+  box-shadow: 1px 6px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 0.5em;
+  background: #fafafa;
+  transition: 0.3s;
+  border-style: none;
+}
+
+.login-btn button:hover {
+  color: #ffffff;
+  background-color: #f1356d;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+.login-btn button:active {
+  color: #ffffff;
+  background-color: #f1356d;
+  border-radius: 0.5em;
+}

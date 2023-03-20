@@ -1,0 +1,15 @@
+.about {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.about .Atitle {
+  color: #f1356d;
+  font-size: 30px;
+  text-align: center;
+}
+.about .Adesc {
+  font-weight: 500;
+  margin: 15px auto;
+  padding: 5px;
+}
