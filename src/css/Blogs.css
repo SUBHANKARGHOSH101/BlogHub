@@ -10,6 +10,16 @@
   border-bottom: 2px solid #ffffff;
   border-radius: 5px;
 }
+
+.allblog-title {
+  display: flex;
+  align-items: center;
+}
+
+.allblog-search {
+  margin-left: auto;
+}
+
 .allblog-preview:hover {
   box-shadow: 1px 1px 6px 4px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
@@ -21,6 +31,7 @@
   text-decoration: none;
 }
 .allmiddle {
+  flex: 1;
   text-align: center;
 }
 

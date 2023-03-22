@@ -46,7 +46,7 @@
   margin-left: -200px;
 }
 
-.blog-details .a {
+.blog-cls .a {
   margin-left: 16px;
   text-decoration: none;
   font-weight: 600;
@@ -61,7 +61,7 @@
 
 .blog-cls {
   display: flex;
-  justify-content: end;
+  justify-content: flex-start;
 }
 
 .blog-details .loader {

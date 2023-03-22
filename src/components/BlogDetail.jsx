@@ -36,7 +36,11 @@ export const BlogDetail = ({ blogs, isAuth }) => {
   const deletePost = async (id) => {
     const postDoc = doc(db, "blogposts", id);
     await deleteDoc(postDoc);
-    window.location.pathname = "/home";
+    window.location.pathname = "/";
+  };
+
+  const pressback = () => {
+    window.location.pathname = "/";
   };
 
   if (loading) {
@@ -57,6 +61,14 @@ export const BlogDetail = ({ blogs, isAuth }) => {
   return (
     <div className="blog-details">
       <div className="blog-cls">
+        <button
+          className="a"
+          onClick={() => {
+            pressback();
+          }}
+        >
+          Back
+        </button>
         {isAuth && blog.user_id === auth.currentUser.email && (
           <button
             className="a"
