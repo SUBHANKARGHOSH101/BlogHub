@@ -4,24 +4,23 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { useState, useEffect } from "react";
 import "../css/BlogDetail.css";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import PulseLoader from "react-spinners/PulseLoader";
+import ReactMarkdown from "react-markdown";
 
-export const BlogDetail = ({ blogs, isAuth }) => {
+export const BlogDetail = ({ blogs, setBlogs }) => {
   const { id } = useParams();
   const blog = blogs.find((blog) => blog.id === id);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
+  const [user] = useAuthState(auth);
   useEffect(() => {
-    if (!isAuth) {
-      window.location.pathname = "/login";
+    if (!user) {
+      navigate("/login");
     }
-    // else {
-    //   setLoading(true);
-    //   setTimeout(() => {
-    //     setLoading(false);
-    //   }, 2000);
-    // }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (blog) {
@@ -29,18 +28,15 @@ export const BlogDetail = ({ blogs, isAuth }) => {
     }
   }, [blog]);
 
-  // if (blogs) {
-  //   setLoading(false);
-  // }
-
   const deletePost = async (id) => {
     const postDoc = doc(db, "blogposts", id);
     await deleteDoc(postDoc);
-    window.location.pathname = "/";
+    setBlogs(blogs.filter((blog) => blog.id !== id));
+    navigate("/");
   };
 
   const pressback = () => {
-    window.location.pathname = "/";
+    navigate("/");
   };
 
   if (loading) {
@@ -62,16 +58,16 @@ export const BlogDetail = ({ blogs, isAuth }) => {
     <div className="blog-details">
       <div className="blog-cls">
         <button
-          className="a"
+          className="tags"
           onClick={() => {
             pressback();
           }}
         >
           Back
         </button>
-        {isAuth && blog.user_id === auth.currentUser.email && (
+        {blog.user_id === auth.currentUser.email && (
           <button
-            className="a"
+            className="tags"
             onClick={() => {
               deletePost(blog.id);
             }}
@@ -82,9 +78,9 @@ export const BlogDetail = ({ blogs, isAuth }) => {
       </div>
       <div>
         <article>
-          <h2>{blog.title}</h2>
-          <p>Written by {blog.author}</p>
-          <div>{blog.postText}</div>
+          <h2 className="title">{blog.title}</h2>
+          <p className="writtenby">Written by {blog.author}</p>
+          <ReactMarkdown className="finalview">{blog.postText}</ReactMarkdown>
         </article>
       </div>
     </div>

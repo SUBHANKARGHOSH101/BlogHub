@@ -58,27 +58,32 @@
   margin: 0 auto;
   border-bottom: 2px solid #0909092e;
 }
-.navbar h1 {
-  color: #f1356d;
-  font-size: x-large;
-}
+
 .navbar .links {
   margin-left: auto;
 }
 .navbar .blogpost {
   font-size: 33px;
+  color: #f1356d;
+}
+
+.navbar .shortblogpost {
+  font-size: 28px;
+  color: #f1356d;
 }
 
 .navbar .shortblogpost {
   font-size: 33px;
   display: none;
 }
-.navbar .a {
-  margin-left: 16px;
+.navbar .tags {
+  margin: 5px;
   text-decoration: none;
   font-weight: 900;
   padding: 6px;
   font-size: large;
+  color: black;
+  font-style: normal;
 }
 .navbar a:hover {
   color: #ffffff;
@@ -93,7 +98,7 @@
   .navbar .shortblogpost {
     display: flex;
   }
-  .navbar .a {
+  .navbar .tags {
     font-size: 14px;
     padding: 5px;
     margin: 5px;

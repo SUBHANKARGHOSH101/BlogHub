@@ -1,25 +1,29 @@
-.blog-details h2 {
+.blog-details .title {
   font-size: 27px;
   color: #f1356d;
-  /* margin-top: 50px; */
+  margin-top: 30px;
   margin-bottom: 7px;
   text-align: center;
 }
 
 .blog-details {
   padding: 20px;
-  align-items: center;
   max-width: 900px;
   word-wrap: break-word;
   margin: 0 auto;
 }
 
-.blog-details p {
-  text-align: center;
+.blog-details .writtenby {
   font-style: italic;
   font-weight: 600;
   margin-top: 10px;
+  font-size: 15px;
 }
+
+/* .postdetails {
+  margin-top: 30px;
+  text-align: left;
+} */
 
 .blog-details div {
   margin: 10px 0;
@@ -46,7 +50,7 @@
   margin-left: -200px;
 }
 
-.blog-cls .a {
+.blog-cls .tags {
   margin-left: 16px;
   text-decoration: none;
   font-weight: 600;
@@ -55,22 +59,50 @@
   border-radius: 0.5em;
   transition: 0.3s;
 }
-.blog-details .a:hover {
+.blog-details .tags:hover {
   transform: scale(1.1);
 }
 
-.blog-cls {
-  display: flex;
-  justify-content: flex-start;
+.blog-details .finalview p {
+  text-align: left;
+  font-style: normal;
 }
 
-.blog-details .loader {
-  text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 200px;
-  margin-top: -10px;
-  width: 400px;
-  margin-left: -200px;
+.blog-details .finalview code {
+  background: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-size: 90%;
+  padding: 0.2rem 0.5rem;
+  font-family: "Roboto Mono", "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
+    "source-code-pro", monospace;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.blog-cls {
+  /* display: flex;
+  justify-content: space-between; */
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tags:first-child {
+  margin-right: auto;
+}
+
+.tags:last-child {
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .blog-details .finalview code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
 }

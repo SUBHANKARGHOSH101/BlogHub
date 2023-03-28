@@ -1,13 +1,23 @@
 import React from "react";
 import { useEffect } from "react";
 import "../css/About.css";
+import { auth } from "../firebase-config";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export const About = ({ isAuth }) => {
+export const About = ({ currentPath, setCurrentPath }) => {
+  const navigate = useNavigate();
+  const [user] = useAuthState(auth);
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
+  // });
   useEffect(() => {
-    if (!isAuth) {
-      window.location.pathname = "/login";
-    }
-  }, []);
+    setCurrentPath(location.pathname);
+    localStorage.clear();
+    localStorage.setItem(currentPath, location.pathname);
+  }, [location.pathname]);
 
   return (
     <div className="about">

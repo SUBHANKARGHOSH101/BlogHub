@@ -1,5 +1,6 @@
 .middle {
   text-align: center;
+  font-style: normal;
 }
 .blog-preview {
   padding: 10px 16px;
@@ -13,16 +14,18 @@
   box-shadow: 1px 1px 6px 4px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
-.blog-preview h2 {
+.blog-preview .blog-title {
   font-size: 22px;
   color: #f1356d;
   margin-bottom: 8px;
   text-decoration: none;
+  text-align: left;
 }
 
 .list-cls {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .blog-title {
@@ -30,6 +33,13 @@
   color: #f1356d;
   font-weight: 800;
   font-size: 21px;
+  font-style: normal;
+}
+
+.blog-like {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
 }
 
 .link-com {
@@ -40,4 +50,15 @@
   font-style: italic;
   font-weight: 500;
   font-size: 15px;
+}
+@media only screen and (max-width: 600px) {
+  .blog-preview .blog-title {
+    font-size: 21px;
+  }
+  .blog-like {
+    font-size: 17px;
+  }
+  .link-p {
+    font-size: 14px;
+  }
 }

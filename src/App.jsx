@@ -12,11 +12,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase-config";
-
+// import { Landing } from "./components/Landing";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate, useLocation } from "react-router-dom";
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [blogs, setBlogs] = useState([]);
+  const [currentPath, setCurrentPath] = useState("/");
   const postsCollection = collection(db, "blogposts");
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const [user] = useAuthState(auth); // add loading state
+  const [showLoading, setShowLoading] = useState(true); // add showLoading state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const getPosts = async () => {
     const data = await getDocs(postsCollection);
@@ -27,66 +35,109 @@ function App() {
     getPosts();
   }, []);
 
+  useEffect(() => {
+    console.log(user);
+    let delay = setTimeout(() => {
+      setShowLoading(false);
+      if (!user) {
+        navigate("/login");
+      } else {
+        navigate("/");
+      }
+    }, 3000);
+
+    return () => clearTimeout(delay);
+  }, [user, navigate, setShowLoading]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setShowLoading(false);
+  //     if (localStorage.getItem(currentPath)) {
+  //       navigate(localStorage.getItem(currentPath));
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  // }, [user]);
+
   const signUserOut = () => {
-    signOut(auth).then(() => {
-      localStorage.clear();
-      setIsAuth(false);
-      window.location.pathname = "/login";
-    });
+    signOut(auth);
+    localStorage.clear();
+    localStorage.setItem(currentPath, "/");
+    navigate("/login");
   };
   return (
     <div className="App">
-      <Router>
-        <nav className="navbar">
-          <h1 className="blogpost">BlogPost</h1>
-          <h1 className="shortblogpost">BP</h1>
-          <div className="links">
-            {!isAuth ? (
-              <Link to="/login" className="a">
-                Login
+      {/* <Router> */}
+      <nav className="navbar">
+        <h1 className="blogpost">BlogPost</h1>
+        <h1 className="shortblogpost">BP</h1>
+        {!user ? (
+          <Link to="/login" className="tags">
+            Login
+          </Link>
+        ) : (
+          <>
+            <div className="links">
+              <Link to="/" className="tags">
+                Home
               </Link>
-            ) : (
-              <>
-                <Link to="/" className="a">
-                  Home
-                </Link>
-                <Link to="/blogs" className="a">
-                  Blogs
-                </Link>
-                <Link to="/newblog" className="a">
-                  Create
-                </Link>
-                <Link to="/about" className="a">
-                  About
-                </Link>
+              <Link to="/blogs" className="tags">
+                Blogs
+              </Link>
+              <Link to="/create" className="tags">
+                Create
+              </Link>
+              <Link to="/about" className="tags">
+                About
+              </Link>
+              <a href="" className="tags" onClick={signUserOut}>
+                LogOut
+              </a>
+            </div>
+          </>
+        )}
+      </nav>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              blogs={blogs.filter((blog) => blog.user_id === user?.email)}
+            />
+          }
+        />
+        <Route
+          path="/blogs"
+          element={
+            <Blogs
+              blogs={blogs.filter((blog) => blog.user_id != user?.email)}
+              title="All Blogs"
+            />
+          }
+        />
+        <Route path="/create" element={<NewBlog />} />
+        <Route
+          path="/about"
+          element={
+            <About currentPath={currentPath} setCurrentPath={setCurrentPath} />
+          }
+        />
+        <Route path="/login" element={<Login />} />
 
-                <a href="" className="a" onClick={signUserOut}>
-                  LogOut
-                </a>
-              </>
-            )}
-          </div>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home blogs={blogs} isAuth={isAuth} />} />
-          <Route
-            path="/blogs"
-            element={<Blogs blogs={blogs} title="All Blogs" isAuth={isAuth} />}
-          />
-          <Route path="/newblog" element={<NewBlog isAuth={isAuth} />} />
-          <Route path="/about" element={<About isAuth={isAuth} />} />
-          <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
-
-          <Route
-            path="/blog-details/:id"
-            element={<BlogDetail blogs={blogs} isAuth={isAuth} />}
-          />
-          <Route
-            path="/allblog-details/:id"
-            element={<AllBlogDetails blogs={blogs} isAuth={isAuth} />}
-          />
-        </Routes>
-      </Router>
+        <Route
+          path="/blogdetails/:id"
+          element={<BlogDetail blogs={blogs} setBlogs={setBlogs} />}
+        />
+        <Route
+          path="/blogs/allblogdetails/:id"
+          element={<AllBlogDetails blogs={blogs} />}
+        />
+        {/* <Route path="/landing" element={<Landing />} /> */}
+      </Routes>
+      {/* </Router> */}
     </div>
   );
 }

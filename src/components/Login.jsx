@@ -3,11 +3,9 @@ import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import "../css/Login.css";
 
-export const Login = ({ setIsAuth }) => {
+export const Login = () => {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
-      localStorage.setItem("isAuth", true);
-      setIsAuth(true);
       window.location.pathname = "/";
     });
   };
