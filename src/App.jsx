@@ -35,32 +35,26 @@ function App() {
     getPosts();
   }, []);
 
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // }, [user, blogs]);
+
   useEffect(() => {
-    console.log(user);
-    let delay = setTimeout(() => {
+    if (user) {
       setShowLoading(false);
-      if (!user) {
-        navigate("/login");
+      if (localStorage.getItem(currentPath)) {
+        navigate(localStorage.getItem(currentPath));
       } else {
         navigate("/");
       }
-    }, 3000);
-
-    return () => clearTimeout(delay);
-  }, [user, navigate, setShowLoading]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     setShowLoading(false);
-  //     if (localStorage.getItem(currentPath)) {
-  //       navigate(localStorage.getItem(currentPath));
-  //     } else {
-  //       navigate("/");
-  //     }
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, [user]);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]);
 
   const signUserOut = () => {
     signOut(auth);

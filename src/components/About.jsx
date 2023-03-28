@@ -8,16 +8,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export const About = ({ currentPath, setCurrentPath }) => {
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  // });
   useEffect(() => {
-    setCurrentPath(location.pathname);
-    localStorage.clear();
-    localStorage.setItem(currentPath, location.pathname);
-  }, [location.pathname]);
+    if (!user) {
+      navigate("/login");
+    }
+  });
+  // useEffect(() => {
+  //   setCurrentPath(location.pathname);
+  //   localStorage.clear();
+  //   localStorage.setItem(currentPath, location.pathname);
+  // }, [location.pathname]);
 
   return (
     <div className="about">

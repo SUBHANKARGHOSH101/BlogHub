@@ -1,12 +1,19 @@
-// import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-// export const Landing = () => {
-//   return (
-//     <div className="landing">
-//       <h1>Welcome to BlogPost</h1>
-//       <Link to="/login" className="btn-primary">
-//         Login
-//       </Link>
-//     </div>
-//   );
-// };
+const Landing = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  return (
+    <div>
+      <h1>Welcome to BlogPost</h1>
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  );
+};
+
+export default Landing;

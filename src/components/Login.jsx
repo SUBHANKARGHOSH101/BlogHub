@@ -6,7 +6,7 @@ import "../css/Login.css";
 export const Login = () => {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
-      window.location.pathname = "/";
+      window.location.pathname = "/home";
     });
   };
   return (
