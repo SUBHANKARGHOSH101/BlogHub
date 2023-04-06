@@ -14,6 +14,15 @@
 .allblog-title {
   display: flex;
   align-items: center;
+  text-decoration: none;
+}
+
+.blog-title {
+  font-size: 22px;
+  color: #f1356d;
+  margin-bottom: 8px;
+  text-decoration: none;
+  text-align: left;
 }
 
 /* .search .allblog-search {
@@ -59,6 +68,8 @@
 
 .alllink-p {
   font-style: italic;
+  font-weight: 500;
+  font-size: 15px;
 }
 .link-com {
   text-decoration: none;

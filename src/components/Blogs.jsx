@@ -43,7 +43,14 @@ export const Blogs = ({ blogs, title }) => {
               key={blog.id}
             >
               <div className="allblog-preview">
-                <h2>{blog.title}</h2>
+                <div className="list-cls">
+                  <h2 className="blog-title">
+                    {blog.title.length > 20
+                      ? blog.title.slice(0, 20) + "..."
+                      : blog.title}
+                  </h2>
+                  <span className="blog-like">{blog.likes.length} likes</span>
+                </div>
                 <p className="alllink-p">Written by {blog.author}</p>
                 {/* <button onClick={() => handleDelete(blog.id)}>delete blog</button> */}
               </div>
