@@ -95,8 +95,12 @@
   margin-right: auto;
 }
 
-.tags:last-child {
+/* .tags:last-child {
   margin-left: auto;
+} */
+
+.bothbuttons {
+  margin: 0%;
 }
 
 @media only screen and (max-width: 600px) {

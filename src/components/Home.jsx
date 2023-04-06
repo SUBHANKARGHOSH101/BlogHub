@@ -13,7 +13,7 @@ export const Home = ({ blogs }) => {
   const [user] = useAuthState(auth);
   useEffect(() => {
     if (!user) {
-      // navigate("/login");
+      navigate("/login");
     }
   }, [user]);
 

@@ -31,7 +31,7 @@ export const NewBlog = () => {
       likes: [],
       timestamp: serverTimestamp(),
     });
-    window.location.pathname = "/";
+    window.location.pathname = "/home";
   };
   const [user] = useAuthState(auth);
   useEffect(() => {

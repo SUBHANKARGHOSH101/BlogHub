@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { deleteDoc, doc } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { useState, useEffect } from "react";
@@ -32,11 +32,11 @@ export const BlogDetail = ({ blogs, setBlogs }) => {
     const postDoc = doc(db, "blogposts", id);
     await deleteDoc(postDoc);
     setBlogs(blogs.filter((blog) => blog.id !== id));
-    navigate("/");
+    navigate("/home");
   };
 
   const pressback = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   if (loading) {
@@ -66,14 +66,19 @@ export const BlogDetail = ({ blogs, setBlogs }) => {
           Back
         </button>
         {blog.user_id === auth.currentUser.email && (
-          <button
-            className="tags"
-            onClick={() => {
-              deletePost(blog.id);
-            }}
-          >
-            Delete
-          </button>
+          <>
+            <Link to={`/blogdetails/edit/${blog.id}`}>
+              <button className="tags">Edit</button>
+            </Link>
+            <button
+              className="tags"
+              onClick={() => {
+                deletePost(blog.id);
+              }}
+            >
+              Delete
+            </button>
+          </>
         )}
       </div>
       <div>

@@ -57,6 +57,7 @@
   max-width: 900px;
   margin: 0 auto;
   border-bottom: 2px solid #0909092e;
+  justify-content: space-between;
 }
 
 .navbar .links {
@@ -85,6 +86,17 @@
   color: black;
   font-style: normal;
 }
+
+.navbar .logintags {
+  margin: 5px;
+  text-decoration: none;
+  font-weight: 900;
+  padding: 6px;
+  font-size: large;
+  color: black;
+  font-style: normal;
+}
+
 .navbar a:hover {
   color: #ffffff;
   background-color: #f1356d;
