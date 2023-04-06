@@ -76,6 +76,7 @@ function App() {
     signOut(auth);
     navigate("/");
   };
+
   return (
     <div className="App">
       {/* <Router> */}

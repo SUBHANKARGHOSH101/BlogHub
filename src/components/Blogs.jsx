@@ -24,7 +24,7 @@ export const Blogs = ({ blogs, title }) => {
         <div className="search">
           <input
             type="text"
-            placeholder="Search blogs"
+            placeholder="Search blogs..."
             value={searchQuery}
             className="allblog-search"
             onChange={(e) => setSearchQuery(e.target.value)}
