@@ -15,18 +15,18 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase-config";
 import Landing from "./components/Landing";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
 
 function App() {
   const navigate = useNavigate();
-  // const location = useLocation();
 
   const [blogs, setBlogs] = useState([]);
   const [currentPath, setCurrentPath] = useState("/");
   const postsCollection = collection(db, "blogposts");
-  const [user] = useAuthState(auth); // add loading state
-  const [showLanding, setShowLanding] = useState(true); // add showLanding state
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, loading] = useAuthState(auth); // add loading state
+  console.log(user);
+  const [showLanding, setShowLanding] = useState(true);
 
   const getPosts = async () => {
     const data = await getDocs(postsCollection);
@@ -38,50 +38,62 @@ function App() {
   }, []);
 
   // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
+  //   if (user) {
+  //     navigate("/home");
   //   } else {
   //     navigate("/");
   //   }
-  // }, [user, blogs]);
+  // }, [user]);
 
   useEffect(() => {
-    if (user) {
-      navigate("/home");
-    } else {
-      navigate("/");
+    if (!loading) {
+      // check if loading is done
+      if (user) {
+        navigate("/home");
+      } else {
+        navigate("/");
+      }
     }
-  }, [user]);
+  }, [loading, user]);
 
   useEffect(() => {
     if (user || !showLanding) {
       setShowLanding(false);
     }
-  }, [user, showLanding]);
+  }, [user]);
 
   const handleLogin = () => {
     setShowLanding(false);
     navigate("/login");
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, [user]);
-
   const signUserOut = () => {
     signOut(auth);
     navigate("/");
   };
 
+  if (loading) {
+    // show loading screen if still loading
+    return (
+      <div className="loading-screen">
+        <PulseLoader
+          className="loader"
+          color={"#f1356d"}
+          loading={loading}
+          size={20}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          speedMultiplier={0.8}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       {/* <Router> */}
       {showLanding ? (
-        <Landing onLogin={handleLogin} />
+        <Landing onLogin={handleLogin} user={user} />
       ) : (
         <>
           <nav className="navbar">
@@ -157,7 +169,6 @@ function App() {
               path="/blogdetails/edit/:id"
               element={<BlogEdit blogs={blogs} setBlogs={setBlogs} />}
             />
-            {/* <Route path="/landing" element={<Landing />} /> */}
           </Routes>
         </>
       )}

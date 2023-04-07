@@ -63,3 +63,36 @@
   display: flex;
   justify-content: end;
 }
+
+.blog-details.finalview p {
+  text-align: left;
+  font-style: normal;
+}
+
+.blog-details .finalview code {
+  background: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-size: 90%;
+  padding: 0.2rem 0.5rem;
+  font-family: "Roboto Mono", "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
+    "source-code-pro", monospace;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.blog-details .writtenby {
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .blog-details .finalview code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+}

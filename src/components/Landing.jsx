@@ -1,8 +1,25 @@
 import React from "react";
 import "../css/Landing.css";
 import logo from "../images/logo.jpg";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const Landing = ({ onLogin }) => {
+const Landing = ({ onLogin, user }) => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="landing-container">
       <div className="landing-image-container">

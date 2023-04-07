@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { useState, useEffect } from "react";
@@ -50,7 +50,7 @@ export const BlogEdit = ({ blogs, setBlogs }) => {
         });
 
         // Navigate back to the blog details page
-        navigate(`/home`);
+        navigate(`/blogdetails/${id}`);
       }
     } catch (error) {
       console.error(error);

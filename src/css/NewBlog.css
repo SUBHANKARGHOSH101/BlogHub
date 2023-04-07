@@ -78,6 +78,24 @@
   text-align: left;
 }
 
+.markdownarea p {
+  text-align: left;
+  font-style: normal;
+}
+
+.markdownarea code {
+  background: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-size: 90%;
+  padding: 0.2rem 0.5rem;
+  font-family: "Roboto Mono", "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
+    "source-code-pro", monospace;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
 .create .hiddenText {
   display: none;
 }
@@ -107,5 +125,10 @@ a {
     margin-top: 2px;
     overflow: auto;
     word-wrap: break-word;
+  }
+  .markdownarea code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
   }
 }

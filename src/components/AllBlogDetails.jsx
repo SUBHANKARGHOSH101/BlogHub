@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import "../css/AllBlogDetails.css";
@@ -11,19 +11,15 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
-import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
+import ReactMarkdown from "react-markdown";
 
 export const AllBlogDetails = () => {
   const { id } = useParams();
-  // const blog = blogs.find((blog) => blog.id === id);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
   const [blog, setBlog] = useState({});
-  // const [likesCount, setLikesCount] = useState(loading ? 0 : blog.likes.length);
-  // const [liked, setLiked] = useState(false);
-  // loading ? 0 : blog.likes.includes(user?.email)
 
   async function fetchDoc() {
     const docSnap = await getDoc(doc(db, "blogposts", id));
@@ -44,27 +40,18 @@ export const AllBlogDetails = () => {
     fetchDoc();
   }, [user]);
 
-  // useEffect(() => {
-  //   if (!loading) {
-  //     setLikesCount(blog.likes.length);
-  //     setLiked(blog.likes.includes(user?.email));
-  //   }
-  // }, [loading]);
-
   function updatelikes() {
     if (!blog.likes.includes(user?.email)) {
       updateDoc(doc(db, "blogposts", id), {
         likes: arrayUnion(user?.email),
       });
-      // setLikesCount((prev) => prev + 1);
-      // setLiked(true);
+
       setBlog((prev) => ({ ...prev, likes: [...prev.likes, user?.email] }));
     } else {
       updateDoc(doc(db, "blogposts", id), {
         likes: arrayRemove(user?.email),
       });
-      // setLikesCount((prev) => prev - 1);
-      // setLiked(false);
+
       setBlog((prev) => ({
         ...prev,
         likes: prev.likes.filter((email) => email != user?.email),
@@ -72,6 +59,10 @@ export const AllBlogDetails = () => {
     }
     console.log(blog.likes.includes(user?.email));
   }
+
+  const pressback1 = () => {
+    navigate("/blogs");
+  };
 
   return (
     <div className="blog-details">
@@ -88,6 +79,9 @@ export const AllBlogDetails = () => {
       ) : (
         <>
           <div className="blog-cls">
+            <button className="tags" onClick={pressback1}>
+              Back
+            </button>
             <button
               className="a"
               onClick={() => {
@@ -100,9 +94,11 @@ export const AllBlogDetails = () => {
           <div>
             <article>
               <h2 className="allblogtitle">{blog.title}</h2>
-              <p>like:{blog.likes.length}</p>
-              <p>Written by {blog.author}</p>
-              <div>{blog.postText}</div>
+              <p>likes:{blog.likes.length}</p>
+              <p className="writtenby">Written by {blog.author}</p>
+              <ReactMarkdown className="finalview">
+                {blog.postText}
+              </ReactMarkdown>
             </article>
           </div>
         </>
