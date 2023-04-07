@@ -45,14 +45,16 @@ export const Blogs = ({ blogs, title }) => {
               <div className="allblog-preview">
                 <div className="list-cls">
                   <h2 className="blog-title">
-                    {blog.title.length > 20
-                      ? blog.title.slice(0, 20) + "..."
+                    {blog.title.length > 15
+                      ? blog.title.slice(0, 15) + "..."
                       : blog.title}
                   </h2>
                   <span className="blog-like">{blog.likes.length} likes</span>
                 </div>
                 <p className="alllink-p">Written by {blog.author}</p>
-                {/* <button onClick={() => handleDelete(blog.id)}>delete blog</button> */}
+                <p className="alllink-p">
+                  at {blog.timestamp.toDate().toLocaleString()}
+                </p>
               </div>
             </Link>
           ))}

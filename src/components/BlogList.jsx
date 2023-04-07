@@ -52,13 +52,16 @@ export const BlogList = ({ blogs, title }) => {
             <div className="blog-preview">
               <div className="list-cls">
                 <h2 className="blog-title">
-                  {blog.title.length > 20
-                    ? blog.title.slice(0, 20) + "..."
+                  {blog.title.length > 15
+                    ? blog.title.slice(0, 15) + "..."
                     : blog.title}
                 </h2>
                 <span className="blog-like">{blog.likes.length} likes</span>
               </div>
               <p className="link-p">Written by {blog.author}</p>
+              <p className="link-p">
+                at {blog.timestamp.toDate().toLocaleString()}
+              </p>
             </div>
           </Link>
         ))}

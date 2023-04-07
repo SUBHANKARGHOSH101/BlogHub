@@ -26,6 +26,7 @@ function App() {
   const postsCollection = collection(db, "blogposts");
   const [user, loading] = useAuthState(auth); // add loading state
   console.log(user);
+  console.log(loading);
   const [showLanding, setShowLanding] = useState(true);
 
   const getPosts = async () => {
@@ -36,14 +37,6 @@ function App() {
   useEffect(() => {
     getPosts();
   }, []);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/home");
-  //   } else {
-  //     navigate("/");
-  //   }
-  // }, [user]);
 
   useEffect(() => {
     if (!loading) {
