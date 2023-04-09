@@ -1,19 +1,21 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { deleteDoc, doc } from "firebase/firestore";
-import { auth, db } from "../firebase-config";
+// import { deleteDoc, doc } from "firebase/firestore";
+import { auth } from "../firebase-config";
 import { useState, useEffect } from "react";
 import "../css/BlogDetail.css";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import PulseLoader from "react-spinners/PulseLoader";
 import ReactMarkdown from "react-markdown";
+import Modal from "./Modal";
 
 export const BlogDetail = ({ blogs, setBlogs }) => {
   const { id } = useParams();
   const blog = blogs.find((blog) => blog.id === id);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [user] = useAuthState(auth);
   useEffect(() => {
@@ -27,13 +29,6 @@ export const BlogDetail = ({ blogs, setBlogs }) => {
       setLoading(false);
     }
   }, [blog]);
-
-  const deletePost = async (id) => {
-    const postDoc = doc(db, "blogposts", id);
-    await deleteDoc(postDoc);
-    setBlogs(blogs.filter((blog) => blog.id !== id));
-    navigate("/home");
-  };
 
   const pressback = () => {
     navigate("/home");
@@ -68,16 +63,25 @@ export const BlogDetail = ({ blogs, setBlogs }) => {
         {blog.user_id === auth.currentUser.email && (
           <>
             <Link to={`/blogdetails/edit/${blog.id}`}>
-              <button className="tags">Edit</button>
+              <button className="tag1">Edit</button>
             </Link>
             <button
               className="tags"
               onClick={() => {
-                deletePost(blog.id);
+                setModalOpen(true);
               }}
             >
               Delete
             </button>
+            {modalOpen && (
+              <Modal
+                setOpenModal={setModalOpen}
+                blogs={blogs}
+                id={id}
+                blog={blog}
+                setBlogs={setBlogs}
+              />
+            )}
           </>
         )}
       </div>

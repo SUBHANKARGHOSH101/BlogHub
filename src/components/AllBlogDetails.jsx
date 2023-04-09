@@ -14,7 +14,7 @@ import { db, auth } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactMarkdown from "react-markdown";
 
-export const AllBlogDetails = () => {
+export const AllBlogDetails = ({ setBlogs }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -47,6 +47,14 @@ export const AllBlogDetails = () => {
       });
 
       setBlog((prev) => ({ ...prev, likes: [...prev.likes, user?.email] }));
+      setBlogs((prev) => {
+        return prev.map((eachDoc) => {
+          if (eachDoc.id == id) {
+            return { ...eachDoc, likes: [...eachDoc.likes, user?.email] };
+          }
+          return eachDoc;
+        });
+      });
     } else {
       updateDoc(doc(db, "blogposts", id), {
         likes: arrayRemove(user?.email),
@@ -56,6 +64,17 @@ export const AllBlogDetails = () => {
         ...prev,
         likes: prev.likes.filter((email) => email != user?.email),
       }));
+      setBlogs((prev) => {
+        return prev.map((eachDoc) => {
+          if (eachDoc.id == id) {
+            return {
+              ...eachDoc,
+              likes: eachDoc.likes.filter((email) => email != user?.email),
+            };
+          }
+          return eachDoc;
+        });
+      });
     }
     console.log(blog.likes.includes(user?.email));
   }
@@ -79,17 +98,21 @@ export const AllBlogDetails = () => {
       ) : (
         <>
           <div className="blog-cls">
-            <button className="tags" onClick={pressback1}>
-              Back
-            </button>
-            <button
-              className="a"
-              onClick={() => {
-                updatelikes();
-              }}
-            >
-              {blog.likes.includes(user?.email) ? "❤️" : "🤍"}
-            </button>
+            <div className="back-position">
+              <button className="tags1" onClick={pressback1}>
+                Back
+              </button>
+            </div>
+            <div>
+              <button
+                className="a"
+                onClick={() => {
+                  updatelikes();
+                }}
+              >
+                {blog.likes.includes(user?.email) ? "❤️" : "🤍"}
+              </button>
+            </div>
           </div>
           <div>
             <article>

@@ -3,8 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import "../css/NewBlog.css";
-// import PulseLoader from "react-spinners/PulseLoader";
-// import JoditEditor from "jodit-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -30,6 +31,7 @@ export const NewBlog = () => {
       user_id: auth.currentUser.email,
       likes: [],
       timestamp: serverTimestamp(),
+      editedat: 0,
     });
     window.location.pathname = "/home";
   };
@@ -50,7 +52,12 @@ export const NewBlog = () => {
           className="textForArea"
           onChange={(e) => setTitle(e.target.value)}
         />
-        <label>Blog body:</label>
+        <label>
+          Blog body:
+          {/* <a className="note">
+            <FontAwesomeIcon icon={faQuestionCircle} />
+          </a> */}
+        </label>
         <div className="center-div">
           <textarea
             ref={textareaRef}

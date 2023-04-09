@@ -25,8 +25,8 @@ function App() {
   const [currentPath, setCurrentPath] = useState("/");
   const postsCollection = collection(db, "blogposts");
   const [user, loading] = useAuthState(auth); // add loading state
-  console.log(user);
-  console.log(loading);
+  // console.log(user);
+  // console.log(loading);
   const [showLanding, setShowLanding] = useState(true);
 
   const getPosts = async () => {
@@ -90,8 +90,8 @@ function App() {
       ) : (
         <>
           <nav className="navbar">
-            <h1 className="blogpost">BlogPost</h1>
-            <h1 className="shortblogpost">BP</h1>
+            <h1 className="blogpost">BlogHub</h1>
+            <h1 className="shortblogpost">BH</h1>
             {!user ? (
               <div className="logintags">
                 <Link to="/login" className="tags">
@@ -135,6 +135,7 @@ function App() {
                 <Blogs
                   blogs={blogs.filter((blog) => blog.user_id != user?.email)}
                   title="All Blogs"
+                  setBlogs={setBlogs}
                 />
               }
             />
@@ -156,7 +157,7 @@ function App() {
             />
             <Route
               path="/blogs/allblogdetails/:id"
-              element={<AllBlogDetails blogs={blogs} />}
+              element={<AllBlogDetails blogs={blogs} setBlogs={setBlogs} />}
             />
             <Route
               path="/blogdetails/edit/:id"

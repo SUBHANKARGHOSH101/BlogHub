@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ export const BlogEdit = ({ blogs, setBlogs }) => {
   const [bodyText, setBodyText] = useState(blog.postText);
 
   const cancelBlog = () => {
-    navigate(`/home`);
+    navigate(`/blogdetails/${id}`);
   };
 
   const handleEditBlog = async (e) => {
@@ -32,6 +32,7 @@ export const BlogEdit = ({ blogs, setBlogs }) => {
         await updateDoc(blogRef, {
           title: title,
           postText: bodyText,
+          editedat: serverTimestamp(),
         });
 
         // Update the blog in the local state
@@ -42,6 +43,7 @@ export const BlogEdit = ({ blogs, setBlogs }) => {
                 ...prevBlog,
                 title: title,
                 postText: bodyText,
+                editedat: serverTimestamp(),
               };
             } else {
               return prevBlog;

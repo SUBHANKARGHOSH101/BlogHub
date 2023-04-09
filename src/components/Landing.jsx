@@ -25,9 +25,9 @@ const Landing = ({ onLogin, user }) => {
       <div className="landing-image-container">
         <img src={logo} alt="BlogPost Logo" className="landing-image" />
       </div>
-      <h1 className="landing-title">Welcome to BlogPost</h1>
+      <h1 className="landing-title">Welcome to BlogHub</h1>
       <div className="landing-para">
-        Join the discussion with BlogPost, a platform for views that matter.
+        Join the discussion with BlogHub, a platform for views that matter.
       </div>
       <button className="landing-button" onClick={onLogin}>
         Login

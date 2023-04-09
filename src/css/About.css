@@ -14,6 +14,11 @@
   padding: 5px;
 }
 @media only screen and (max-width: 600px) {
+  .about {
+    max-width: 100%;
+    margin: 20px auto;
+    /* padding: 10px; */
+  }
   .about .Atitle {
     color: #f1356d;
     font-size: 25px;
@@ -22,7 +27,7 @@
   .about .Adesc {
     font-weight: 500;
     margin: 15px auto;
-    font-size: 15px;
+    font-size: 14px;
     padding: 5px;
   }
 }
