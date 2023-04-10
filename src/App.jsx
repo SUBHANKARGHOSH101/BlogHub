@@ -1,16 +1,16 @@
 import "./App.css";
-import { Home } from "./components//Home";
-import { Login } from "./components/Login";
-import { NewBlog } from "./components//NewBlog";
-import { About } from "./components//About";
-import { Blogs } from "./components//Blogs";
+import React, { lazy, useState, useEffect, Suspense } from "react";
+// import { Home } from "./components//Home";
+// import Login from "./components/Login";
+// import { NewBlog } from "./components//NewBlog";
+// import About from "./components//About";
+// import { Blogs } from "./components//Blogs";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase-config";
-import { BlogDetail } from "./components//BlogDetail";
-import { AllBlogDetails } from "./components/AllBlogDetails";
-import { BlogEdit } from "./components/BlogEdit";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+// import { BlogDetail } from "./components//BlogDetail";
+// import { AllBlogDetails } from "./components/AllBlogDetails";
+// import { BlogEdit } from "./components/BlogEdit";
+import { Routes, Route, Link } from "react-router-dom";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase-config";
 import Landing from "./components/Landing";
@@ -18,15 +18,23 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 
+const About = lazy(() => import("./components//About"));
+const Home = lazy(() => import("./components//Home"));
+const Login = lazy(() => import("./components//Login"));
+const AllBlogDetails = lazy(() => import("./components//AllBlogDetails"));
+const BlogDetail = lazy(() => import("./components//BlogDetail"));
+const BlogEdit = lazy(() => import("./components//BlogEdit"));
+const Blogs = lazy(() => import("./components//Blogs"));
+const NewBlog = lazy(() => import("./components//NewBlog"));
+
 function App() {
   const navigate = useNavigate();
 
   const [blogs, setBlogs] = useState([]);
   const [currentPath, setCurrentPath] = useState("/");
   const postsCollection = collection(db, "blogposts");
-  const [user, loading] = useAuthState(auth); // add loading state
-  // console.log(user);
-  // console.log(loading);
+  const [user, loading] = useAuthState(auth);
+
   const [showLanding, setShowLanding] = useState(true);
 
   const getPosts = async () => {
@@ -40,7 +48,6 @@ function App() {
 
   useEffect(() => {
     if (!loading) {
-      // check if loading is done
       if (user) {
         navigate("/home");
       } else {
@@ -66,7 +73,6 @@ function App() {
   };
 
   if (loading) {
-    // show loading screen if still loading
     return (
       <div className="loading-screen">
         <PulseLoader
@@ -84,7 +90,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Router> */}
       {showLanding ? (
         <Landing onLogin={handleLogin} user={user} />
       ) : (
@@ -124,49 +129,79 @@ function App() {
             <Route
               path="/home"
               element={
-                <Home
-                  blogs={blogs.filter((blog) => blog.user_id === user?.email)}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Home
+                    blogs={blogs.filter((blog) => blog.user_id === user?.email)}
+                  />
+                </Suspense>
               }
             />
             <Route
               path="/blogs"
               element={
-                <Blogs
-                  blogs={blogs.filter((blog) => blog.user_id != user?.email)}
-                  title="All Blogs"
-                  setBlogs={setBlogs}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Blogs
+                    blogs={blogs.filter((blog) => blog.user_id != user?.email)}
+                    title="All Blogs"
+                  />
+                </Suspense>
               }
             />
-            <Route path="/create" element={<NewBlog />} />
+            <Route
+              path="/create"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <NewBlog />
+                </Suspense>
+              }
+            />
             <Route
               path="/about"
               element={
-                <About
-                  currentPath={currentPath}
-                  setCurrentPath={setCurrentPath}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <About
+                    currentPath={currentPath}
+                    setCurrentPath={setCurrentPath}
+                  />
+                </Suspense>
               }
             />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Login />
+                </Suspense>
+              }
+            />
 
             <Route
               path="/blogdetails/:id"
-              element={<BlogDetail blogs={blogs} setBlogs={setBlogs} />}
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <BlogDetail blogs={blogs} setBlogs={setBlogs} />
+                </Suspense>
+              }
             />
             <Route
               path="/blogs/allblogdetails/:id"
-              element={<AllBlogDetails blogs={blogs} setBlogs={setBlogs} />}
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AllBlogDetails blogs={blogs} setBlogs={setBlogs} />
+                </Suspense>
+              }
             />
             <Route
               path="/blogdetails/edit/:id"
-              element={<BlogEdit blogs={blogs} setBlogs={setBlogs} />}
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <BlogEdit blogs={blogs} setBlogs={setBlogs} />
+                </Suspense>
+              }
             />
           </Routes>
         </>
       )}
-      {/* </Router> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import "../css/Blogs.css";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export const Blogs = ({ blogs, title, setBlogs }) => {
+const Blogs = ({ blogs, title }) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [user] = useAuthState(auth);
@@ -78,3 +78,5 @@ export const Blogs = ({ blogs, title, setBlogs }) => {
     </>
   );
 };
+
+export default Blogs;

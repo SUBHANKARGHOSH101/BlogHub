@@ -3,7 +3,7 @@ import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import "../css/Login.css";
 
-export const Login = () => {
+const Login = () => {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
       window.location.pathname = "/home";
@@ -20,3 +20,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

@@ -14,7 +14,7 @@ import { db, auth } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactMarkdown from "react-markdown";
 
-export const AllBlogDetails = ({ setBlogs }) => {
+const AllBlogDetails = ({ setBlogs }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -129,3 +129,5 @@ export const AllBlogDetails = ({ setBlogs }) => {
     </div>
   );
 };
+
+export default AllBlogDetails;

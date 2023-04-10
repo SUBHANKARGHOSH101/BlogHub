@@ -71,6 +71,26 @@
   font-weight: 400;
 }
 
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px; /* add some margin to the right */
+}
+
+.allblog-search {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 0, 0);
+  font-size: 16px;
+  width: 170px;
+  margin-left: 10px; /* add some margin to the left */
+}
+
+.allblog-search::placeholder {
+  color: rgb(0, 0, 0);
+}
+
 @media only screen and (max-width: 600px) {
   .middle {
     text-align: center;

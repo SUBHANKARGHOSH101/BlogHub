@@ -8,7 +8,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import PulseLoader from "react-spinners/PulseLoader";
 import ReactMarkdown from "react-markdown";
 
-export const BlogEdit = ({ blogs, setBlogs }) => {
+const BlogEdit = ({ blogs, setBlogs }) => {
   const { id } = useParams();
   const blog = blogs.find((blog) => blog.id === id);
   const [user] = useAuthState(auth);
@@ -117,3 +117,5 @@ export const BlogEdit = ({ blogs, setBlogs }) => {
     </div>
   );
 };
+
+export default BlogEdit;

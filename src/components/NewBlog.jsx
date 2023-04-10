@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactMarkdown from "react-markdown";
 
-export const NewBlog = () => {
+const NewBlog = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [postText, setPostText] = useState("");
@@ -75,3 +75,5 @@ export const NewBlog = () => {
     </div>
   );
 };
+
+export default NewBlog;

@@ -7,7 +7,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export const BlogList = ({ blogs, title }) => {
+const BlogList = ({ blogs, title }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -97,3 +97,5 @@ export const BlogList = ({ blogs, title }) => {
     </>
   );
 };
+
+export default BlogList;

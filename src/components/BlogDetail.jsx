@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-// import { deleteDoc, doc } from "firebase/firestore";
 import { auth } from "../firebase-config";
 import { useState, useEffect } from "react";
 import "../css/BlogDetail.css";
@@ -10,7 +9,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import ReactMarkdown from "react-markdown";
 import Modal from "./Modal";
 
-export const BlogDetail = ({ blogs, setBlogs }) => {
+const BlogDetail = ({ blogs, setBlogs }) => {
   const { id } = useParams();
   const blog = blogs.find((blog) => blog.id === id);
   const [loading, setLoading] = useState(true);
@@ -95,3 +94,5 @@ export const BlogDetail = ({ blogs, setBlogs }) => {
     </div>
   );
 };
+
+export default BlogDetail;
