@@ -129,7 +129,21 @@ function App() {
             <Route
               path="/home"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <Home
                     blogs={blogs.filter((blog) => blog.user_id === user?.email)}
                   />
@@ -139,7 +153,21 @@ function App() {
             <Route
               path="/blogs"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <Blogs
                     blogs={blogs.filter((blog) => blog.user_id != user?.email)}
                     title="All Blogs"
@@ -150,7 +178,21 @@ function App() {
             <Route
               path="/create"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <NewBlog />
                 </Suspense>
               }
@@ -158,7 +200,21 @@ function App() {
             <Route
               path="/about"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <About
                     currentPath={currentPath}
                     setCurrentPath={setCurrentPath}
@@ -169,7 +225,21 @@ function App() {
             <Route
               path="/login"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <Login />
                 </Suspense>
               }
@@ -178,7 +248,21 @@ function App() {
             <Route
               path="/blogdetails/:id"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <BlogDetail blogs={blogs} setBlogs={setBlogs} />
                 </Suspense>
               }
@@ -186,7 +270,21 @@ function App() {
             <Route
               path="/blogs/allblogdetails/:id"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <AllBlogDetails blogs={blogs} setBlogs={setBlogs} />
                 </Suspense>
               }
@@ -194,11 +292,26 @@ function App() {
             <Route
               path="/blogdetails/edit/:id"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                  fallback={
+                    <div className="loading-screen">
+                      <PulseLoader
+                        className="loader"
+                        color={"#f1356d"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={0.8}
+                      />
+                    </div>
+                  }
+                >
                   <BlogEdit blogs={blogs} setBlogs={setBlogs} />
                 </Suspense>
               }
             />
+            <Route exact path="/" component={Landing} />
           </Routes>
         </>
       )}

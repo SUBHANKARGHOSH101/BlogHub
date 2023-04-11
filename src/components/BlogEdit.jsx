@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import PulseLoader from "react-spinners/PulseLoader";
 import ReactMarkdown from "react-markdown";
-
+import "../css/BlogEdit.css";
 const BlogEdit = ({ blogs, setBlogs }) => {
   const { id } = useParams();
   const blog = blogs.find((blog) => blog.id === id);
