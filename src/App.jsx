@@ -193,7 +193,10 @@ function App() {
                     </div>
                   }
                 >
-                  <NewBlog />
+                  <NewBlog
+                    setBlogs={setBlogs}
+                    blogs={blogs.filter((blog) => blog.user_id === user?.email)}
+                  />
                 </Suspense>
               }
             />

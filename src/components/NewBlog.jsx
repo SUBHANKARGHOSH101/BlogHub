@@ -1,6 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { setDoc, doc, serverTimestamp } from "firebase/firestore";
+import {
+  setDoc,
+  getDocs,
+  collection,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import "../css/NewBlog.css";
 
@@ -9,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactMarkdown from "react-markdown";
 
-const NewBlog = () => {
+const NewBlog = ({ setBlogs, blogs }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [postText, setPostText] = useState("");
@@ -29,6 +35,9 @@ const NewBlog = () => {
       timestamp: serverTimestamp(),
       editedat: 0,
     });
+    const querySnapshot = await getDocs(collection(db, "blogposts"));
+    const updatedBlogs = querySnapshot.docs.map((doc) => doc.data());
+    setBlogs(updatedBlogs);
     navigate("/home");
   };
   const [user] = useAuthState(auth);
