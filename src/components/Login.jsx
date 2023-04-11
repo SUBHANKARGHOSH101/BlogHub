@@ -2,11 +2,13 @@ import React from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import "../css/Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
-      window.location.pathname = "/home";
+      navigate("/home");
     });
   };
   return (
