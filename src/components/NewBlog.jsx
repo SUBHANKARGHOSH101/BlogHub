@@ -3,8 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import "../css/NewBlog.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +15,6 @@ const NewBlog = () => {
   const [postText, setPostText] = useState("");
   const [loading, setLoading] = useState(true);
   const textareaRef = useRef(null);
-
-  // const postsCollection = collection(db, "blogposts");
 
   const createPost = async (e) => {
     e.preventDefault();
@@ -33,7 +29,7 @@ const NewBlog = () => {
       timestamp: serverTimestamp(),
       editedat: 0,
     });
-    window.location.pathname = "/home";
+    navigate("/home");
   };
   const [user] = useAuthState(auth);
   useEffect(() => {
